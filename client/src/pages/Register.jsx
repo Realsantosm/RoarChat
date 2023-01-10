@@ -1,23 +1,62 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 // import Login from './Login';
 import Logo from '../assets/logo.svg';
-
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 const Register = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        alert("form")
-    }
-    const handleChange = (event) => {
-        event.preventDefault();
+    const [values, setValues] = useState({
+        username: "",
+        email:"",
+        password:"",
+        confirmPassword:"",
+    });
 
+    const toastOptions = {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(handleValidation()) {
+            const { password, confirmPassword, username, email } = values;
+            const {data} = await axios.post();
+        };
+    };
+
+    const handleValidation = () => {
+        const {password, confirmPassword, username, email} = values;
+        if(password !== confirmPassword) {
+            toast.error("Password and Confirm password must be same.", toastOptions);
+            return false;
+        } else if(username.length < 3) {
+            toast.error("username must be greater than 3 char.", toastOptions);
+            return false;
+        } else if(password.length < 8) {
+            toast.error("username must be greater than 8 char.", toastOptions);
+            return false;
+        }else if(email === "") {
+            toast.error("Email is required", toastOptions);
+            return false;
+        }
+        return true;
+    };
+
+    const handleChange = (e) => {
+        setValues({...values, [e.target.value] : e.target.value });
+
+    };
   return (
     <>
         <FormContainer>
-            <form onSubmit={(event) => handleSubmit(event)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="brand">
                     <img src={Logo} alt="Logo here" />
                     <h1>RoarKies</h1>
@@ -26,10 +65,11 @@ const Register = () => {
                 <input type="email" placeholder='Email' name='email' onChange={(e) => handleChange(e)} />
                 <input type="password" placeholder='Password' name='password' onChange={(e) => handleChange(e)} />
                 <input type="password" placeholder='Confirm Password' name='confirmPassword' onChange={(e) => handleChange(e)} />
-                <button type='submit'>Create User</button>
+                <button type='submit'>Create User</button> 
                 <span>Already have an account? <Link to="/login">Login</Link></span>
             </form> 
         </FormContainer>
+        <ToastContainer />
     </>
   )
 }
@@ -53,7 +93,6 @@ const FormContainer = styled.div`
         }
         h1{
             background: linear-gradient(to right, #f55, orange);
-            //background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
             -webkit-text-fill-color: transparent;
             -webkit-background-clip: text;
             font-size: 3rem;
