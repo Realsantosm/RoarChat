@@ -25,10 +25,15 @@ const Register = () => {
         theme: "dark",
     }
 
+    useEffect(() => {
+        if (localStorage.getItem()) {
+        //   navigate("/");
+        }
+      }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(handleValidation()) {
-            console.log("is it validated", registerRoute);
             const { password, username, email } = values;
             const {data} = await axios.post(registerRoute, {
                 username,

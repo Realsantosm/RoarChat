@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes")
 
 // import files from ENV and its data
 const URL = process.env.PORT || 4000;
