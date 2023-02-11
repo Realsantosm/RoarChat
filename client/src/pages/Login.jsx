@@ -29,7 +29,6 @@ const Login = () => {
       if(localStorage.getItem('chat-app-user')) {
         navigate('/');
       }
-
     },[]);
 
     const handleSubmit = async (e) => {
