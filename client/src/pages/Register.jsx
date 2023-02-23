@@ -17,6 +17,8 @@ const Register = () => {
         confirmPassword:"",
     });
 
+    //* I am happy coding this way!
+    
     const toastOptions = {
         position: "bottom-right",
         autoClose: 8000,
