@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Contacts = () => {
-  return (
-    <div>Contacts</div>
-  )
-}
-
-export default Contacts
+const Contacts = ({ contacts, currentUser }) => {
+  return <Container></Container>;
+};
+const Container = styled.div``;
+export default Contacts;
